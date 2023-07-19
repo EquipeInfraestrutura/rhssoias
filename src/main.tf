@@ -79,9 +79,6 @@ resource "aws_autoscaling_group" "asg_keycloak" {
   target_group_arns         = ["${aws_lb_target_group.alb-keycloak.arn}"]
   health_check_type         = "ELB"
   vpc_zone_identifier       = var.subnets
-  tags = {
-    Name = "RHSSO - Homolog"
-  }
 
   launch_template {
     id      = aws_launch_template.keycloak.id
