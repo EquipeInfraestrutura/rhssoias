@@ -80,7 +80,7 @@ resource "aws_autoscaling_group" "asg_keycloak" {
   health_check_type         = "ELB"
   vpc_zone_identifier       = var.subnets
   tags = {
-    Name = "RHSSO - Homologação"
+    Name = "RHSSO - Homolog"
   }
 
   launch_template {
