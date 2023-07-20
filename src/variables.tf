@@ -67,6 +67,7 @@ variable "hostedzone" {
 variable "health_check" {
    type = map(string)
    default = {
+      "protocol" = "https"
       "timeout"  = "10"
       "interval" = "30"
       "path"     = "/"
