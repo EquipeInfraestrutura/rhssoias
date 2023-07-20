@@ -68,10 +68,10 @@ variable "health_check" {
    type = map(string)
    default = {
       "timeout"  = "10"
-      "interval" = "20"
+      "interval" = "30"
       "path"     = "/"
-      "port"     = "80"
+      "port"     = "8443"
       "unhealthy_threshold" = "2"
-      "healthy_threshold" = "3"
+      "healthy_threshold" = "5"
     }
 }
