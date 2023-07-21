@@ -1,10 +1,17 @@
 # Configuração do Launch Configuration
 resource "aws_launch_template" "keycloak" {
   name_prefix               = "keycloak"
+  description               = "Ambiente de homolog RHSSO"
   image_id                  = var.ami_id
   key_name                  = var.keyname
   vpc_security_group_ids    = var.sg_keycloak
   instance_type             = var.instance
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name = "RHSSO - Homolog"
+    }
+  }
 }
 
 # Configuração do Application Load Balancer
@@ -77,7 +84,7 @@ resource "aws_autoscaling_group" "asg_keycloak" {
   min_size                  = 1
   health_check_grace_period = 300
   target_group_arns         = ["${aws_lb_target_group.alb-keycloak.arn}"]
-  health_check_type         = "ELB"
+  health_check_type         = "EC2"
   vpc_zone_identifier       = var.subnets
 
   launch_template {
@@ -96,7 +103,7 @@ resource "aws_route53_record" "www" {
   zone_id = var.hostedzone
   name    = "acessotf"
   type    = "A"
-
+  
   alias {
     name                   = aws_lb.alb_keycloak.dns_name
     zone_id                = aws_lb.alb_keycloak.zone_id

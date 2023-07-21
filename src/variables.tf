@@ -70,7 +70,7 @@ variable "health_check" {
       "timeout"  = "10"
       "interval" = "30"
       "path"     = "/"
-      "port"     = "8443"
+      "port"     = "traffic-port"
       "unhealthy_threshold" = "2"
       "healthy_threshold" = "5"
     }
