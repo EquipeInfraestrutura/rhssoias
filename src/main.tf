@@ -1,6 +1,6 @@
 # Configuração do Launch Configuration
 resource "aws_launch_template" "keycloak" {
-  name_prefix               = "keycloak"
+  name                      = "rhsso"
   description               = "Ambiente de homolog RHSSO"
   image_id                  = var.ami_id
   key_name                  = var.keyname
