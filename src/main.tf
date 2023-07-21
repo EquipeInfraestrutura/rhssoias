@@ -68,7 +68,7 @@ resource "aws_lb_listener" "lb_listner_https" {
 
   default_action {
      type             = "forward"
-     target_group_arn = aws_lb_target_group.alb-keycloak.id
+     target_group_arn = aws_lb_target_group.alb-keycloak.arn
   }
 }
 
@@ -90,8 +90,8 @@ resource "aws_autoscaling_group" "asg_keycloak" {
 
   launch_template {
     id      = aws_launch_template.keycloak.id
-    version = "$Default"
-  }
+    version = aws_launch_template.keycloak.latest_version
+ }
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment_bar" {
