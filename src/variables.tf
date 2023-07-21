@@ -36,7 +36,7 @@ variable "subnets" {
 
 variable "instance" {
   type        = string
-  default     = "t3a.micro"
+  default     = "t3a.small"
   description = "instance_keycloak"
 }
 
@@ -67,7 +67,8 @@ variable "hostedzone" {
 variable "health_check" {
    type = map(string)
    default = {
-      "timeout"  = "10"
+      "protocol" = "HTTPS"
+      "timeout"  = "5"
       "interval" = "30"
       "path"     = "/"
       "port"     = "traffic-port"

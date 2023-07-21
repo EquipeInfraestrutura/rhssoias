@@ -32,6 +32,7 @@ resource "aws_lb_target_group" "alb-keycloak" {
   protocol    = "HTTPS"
   vpc_id      = var.vpc_id
      health_check {
+      protocol            = var.health_check["protocol"]
       healthy_threshold   = var.health_check["healthy_threshold"]
       interval            = var.health_check["interval"]
       unhealthy_threshold = var.health_check["unhealthy_threshold"]
@@ -59,7 +60,7 @@ resource "aws_lb_listener" "front_end" {
 }
 
 resource "aws_lb_listener" "lb_listner_https" {
-  load_balancer_arn = aws_lb.alb_keycloak.id
+  load_balancer_arn = aws_lb.alb_keycloak.arn
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
@@ -103,7 +104,7 @@ resource "aws_route53_record" "www" {
   zone_id = var.hostedzone
   name    = "acessotf"
   type    = "A"
-  
+
   alias {
     name                   = aws_lb.alb_keycloak.dns_name
     zone_id                = aws_lb.alb_keycloak.zone_id
